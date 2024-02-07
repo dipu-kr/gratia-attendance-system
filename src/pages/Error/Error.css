@@ -19,27 +19,25 @@
 .error_text{
     color: #121212;
 }
-
-@media screen and (max-width:320px){
+.error_back_btn{
+    margin-top: 15px;
+    padding: 8px 15px;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+.error_back_btn:hover{
+    background-color: lightgrey;
+}
+@media screen and (max-width:600px){
     .error_heading{
     color: #6a5acd;
-    font-Size: 90px; 
+    font-Size: 30px; 
    font-family: "Mono";
 }
 .error_text{
-    font-size: 15px;
-    color: #121212;
-}
-}
-
-@media screen and (min-width:320px) and (max-width:430px){
-    .error_heading{
-    color: #6a5acd;
-    font-Size: 100px; 
-   font-family: "Mono";
-}
-.error_text{
-    font-size: 15px;
+    font-size: 14px;
     color: #121212;
 }
 }

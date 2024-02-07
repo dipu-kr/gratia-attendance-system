@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "./MyHistory.css";
-import background from "../../assets/background_1.jpg"
-import noDataImg from "../../assets/no_data_img.webp"
+// import background from "../../assets/background_1.jpg"
+// import noDataImg from "../../assets/no_data_img.webp"
 import Navbar from '../../components/Navbar/Navbar';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
@@ -14,16 +14,13 @@ import { useAttend } from '../../context/attendance/attenContext';
 import { Empty } from 'antd';
 
 
-
-
 const MyHistory = () => {
     const currentDate = new Date().toISOString().substring(0, 10)
     const [getHistoryDate, setGetHistoryDate] = useState(new Date().toISOString().substring(0, 10));
     const [updatedData, setUpdatedData] = useState({})
 
-    const { userData } = useAuth()
+    const { userData, } = useAuth()
     const { setFacultyHistoryData, facultyHistoryData } = useAttend();
-    // console.log(facultyHistoryData)
 
     // -----------------------getHistorydateFun---------------
     const getHistoryDateFun = (date) => {
@@ -72,8 +69,6 @@ const MyHistory = () => {
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-
 
     return (
         <div className='faculty-history-container'>

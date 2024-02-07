@@ -70,6 +70,8 @@ const Login = () => {
   useEffect(() => {
     if (token && userData) {
       return navigate("/home");
+    } else {
+      return navigate("/");
     }
   }, [token, userData]);
 

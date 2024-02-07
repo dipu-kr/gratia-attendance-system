@@ -49,6 +49,15 @@ const Navbar = ({ type, color }) => {
     setLoginPopUp(!loginPopUp)
   }
 
+  const adminRouteFun = () => {
+    setLoginPopUp(false)
+    navigate("/admin")
+  }
+  const userRouteFun = () => {
+    setLoginPopUp(false)
+    navigate("/")
+  }
+
   const menuControl = () => {
     setMenu(!menu);
   };
@@ -144,8 +153,8 @@ const Navbar = ({ type, color }) => {
           loginPopUp &&
           <div className="select-login-popup-div">
             <div>
-              <button onClick={() => navigate("/admin")}>Admin Login</button>
-              <button onClick={() => navigate("/")}>User Login</button>
+              <button onClick={adminRouteFun}>Admin Login</button>
+              <button onClick={userRouteFun}>User Login</button>
             </div>
           </div>
         }
