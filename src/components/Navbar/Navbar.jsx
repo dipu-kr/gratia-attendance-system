@@ -135,7 +135,7 @@ const Navbar = ({ type, color }) => {
       </div>
       <div className="navbar-right">
         {
-          userData.role === 0 || userData?.role === 1 ?
+          token && userData.role === 0 || token && userData?.role === 1 ?
             <div className="menu-div" onClick={menuControl}>
               {menu ? (
                 <AiOutlineClose className="close-icon" />
@@ -161,7 +161,7 @@ const Navbar = ({ type, color }) => {
         {/* -------------------------Users menu for mobile------------------------------------  */}
 
         <ul className={menu ? "openMenu mobMenu" : "openMenu closeMenu"}>
-          {userData.role === 0 &&
+          {token && userData.role === 0 &&
             <>
               <li onClick={menuControl}>
                 <NavLink to="/home" style={({ isActive }) => ({
@@ -250,7 +250,7 @@ const Navbar = ({ type, color }) => {
         </ul>
         {/* ------------------------------users navbar for desktop-------------- */}
 
-        {userData.role === 0 &&
+        {token && userData.role === 0 &&
           <div>
             <div className="desktop-notification-div">
               <span onClick={userProfileFun}>
@@ -303,19 +303,15 @@ const Navbar = ({ type, color }) => {
         }
 
         {/* ---------------------------------------------------admin navbar for desktop ------------------------- */}
-        {userData.role === 1 &&
+        {token && userData.role === 1 &&
           <>
             <div className="desktop-notification-div">
-              <span onClick={userProfileFun}>
-                A
-                {/* {token ? userData.first_name.charAt(0) : ''} */}
-              </span>
+              <span onClick={userProfileFun}>A</span>
             </div>
-            {userProfile && <div className="user_profile_and_logout">
-              {/* <span onClick={() => navigate("/profile&1")}>Profile</span>
-              <span onClick={changePasswordPopUpFun}>Change Password</span> */}
-              <span onClick={logOutFun}>Logout</span>
-            </div>}
+            {userProfile &&
+              <div className="user_profile_and_logout">
+                <span onClick={logOutFun}>Logout</span>
+              </div>}
           </>
         }
         {/* -------------------------Users menu ended------------------------------------  */}

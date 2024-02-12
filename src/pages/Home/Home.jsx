@@ -437,25 +437,25 @@ const Home = () => {
                                         <>
                                             {checkIn && (
                                                 <Box className='home-register-btn-div'>
-                                                    <Button onClick={handleCheckOutBtnGroupOpen}>
+                                                    <div onClick={handleCheckOutBtnGroupOpen}>
                                                         <img src={checkout} alt="atten-btn" />
-                                                    </Button>
+                                                    </div>
                                                 </Box>
                                             )}
 
                                             {!checkIn && (
                                                 <Box className='home-register-btn-div'>
-                                                    <Button onClick={handleDropdownOpen}>
+                                                    <div onClick={handleDropdownOpen}>
                                                         <img src={checkin} alt="atten-btn" />
-                                                    </Button>
+                                                    </div>
                                                 </Box>
                                             )}
                                         </>
                                     ) : (
                                         <Box className='home-register-btn-div'>
-                                            <Button onClick={handleClickOpen}>
+                                            <div onClick={handleClickOpen}>
                                                 <img src={checkin} alt="atten-btn" />
-                                            </Button>
+                                            </div>
                                         </Box>
                                     )}
 

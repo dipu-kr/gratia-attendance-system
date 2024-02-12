@@ -153,8 +153,19 @@ line-height: 25px;
     align-items: center;
     justify-content: center;
 }
-.home-register-btn-div Button img{
+.home-register-btn-div div{
+   width: 100px;
+    height: 100px; 
+    border-radius: 50%;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(224, 222, 222);
+}
+.home-register-btn-div div img{
     width: 100px;
+    height: 100px;
+    object-fit: cover;
 }
 /* ---------------------------------------------------------------------------------------------- */
 .home-details-date{
