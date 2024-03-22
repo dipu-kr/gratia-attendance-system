@@ -19,6 +19,7 @@ const Report = () => {
     const [getEndDate, setGetEndDate] = useState(new Date().toISOString().substring(0, 10));
     const [loadingData, setLoadingData] = useState(false);
     const [getAttendHistory, setGetAttendHistory] = useState([])
+    console.log("hello", getAttendHistory)
     const [userType, setUserType] = useState("All Users")
     // console.log(userType)
     const [userDropdownList, setUserDropdownList] = useState([])
@@ -144,15 +145,7 @@ const Report = () => {
             toast.error("No Data In Table.");
         }
         else {
-            // const req = {
-            //     start_date: getStartDate,
-            //     end_date: getEndDate
-            // };
             try {
-                // Fetch data from the API
-                // const response = await axiosInstance.post('/find-attendance', req);
-                // const jsonData = await response?.data;
-
                 // ---------------made some changes here for excel data-----------------
                 const jsonData = getAttendHistory;
 
@@ -162,22 +155,22 @@ const Report = () => {
                 const worksheet = workbook.addWorksheet('Sheet 1');
 
                 // Set headers
-                const headers = ['Emp ID', 'First Name', 'Last Name', 'Status', 'In Date', 'In Time', 'In Office', 'Out Date', 'Out Time', 'Out Office', 'In Distance', 'Out Distance', 'Working Hrs'];
+                const headers = ['Emp ID', 'First Name', 'Last Name', 'Status', 'Message', 'In Date', 'In Time', 'In Office', 'Out Date', 'Out Time', 'Out Office', 'In Distance', 'Out Distance', 'Working Hrs'];
                 const headerRow = worksheet.getRow(1);
                 worksheet.getRow(1).values = headers;
                 headerRow.font = { bold: true };
                 headerRow.fill = {
                     type: 'pattern',
                     pattern: 'solid',
-                    fgColor: { argb: 'FFFF00' }, // Yellow background color
+                    fgColor: { argb: '197419' }, // Green background color
                 };
 
                 // Set data rows
                 jsonData.forEach((attendance, index) => {
                     const rowIndex = index + 2;
-                    const { in_date, in_time, in_office, out_date, out_time, out_office, status, user, in_distance, out_distance, working_hours } = attendance;
+                    const { in_date, in_time, in_office, out_date, out_time, out_office, status, msg, user, in_distance, out_distance, working_hours } = attendance;
                     const { first_name, last_name, emp_id } = user;
-                    const values = [emp_id, first_name, last_name, status, in_date, in_time, in_office, out_date, out_time, out_office, in_distance, out_distance, working_hours];
+                    const values = [emp_id, first_name, last_name, status, msg, in_date, in_time, in_office, out_date, out_time, out_office, in_distance, out_distance, working_hours];
                     const dataRow = worksheet.getRow(rowIndex).values = values;
                     dataRow.alignment = { vertical: 'middle', horizontal: 'center' }; // Center alignment
                 });

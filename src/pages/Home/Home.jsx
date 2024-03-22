@@ -248,9 +248,6 @@ const Home = () => {
 
     useEffect(() => {
         handleUserCheckIn()
-        // setTimeout(() => {
-        //     setHolidayPopUp(true)
-        // }, 1000)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

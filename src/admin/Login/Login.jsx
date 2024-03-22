@@ -66,7 +66,6 @@ const Login = () => {
                     setLoading(false)
                 });
         }
-
     }
 
     useEffect(() => {

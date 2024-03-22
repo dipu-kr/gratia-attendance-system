@@ -5,3 +5,5 @@
 // export const API_URL = 'https://attendance.gratiatechnology.com/api'
 // export const API_URL = 'http://52.66.21.207:9000/api'
 export const API_URL = 'https://api.attendancetested.gratiatechnology.com/api'
+// export const API_URL = 'https://scratch-celtic-ra-home.trycloudflare.com/api'
+
