@@ -24,6 +24,7 @@ const InRangePopUp = ({ setInRange, setCheckIn, handleUserCheckIn, officeName })
 
     const { userData } = useAuth();
     const { currTime, currDate, getDist, showMesgBox, updateAttendanceStatus, setUpdateAttendanceStatus } = useAttend()
+
     const { setUserAttendUpdatePerDay } = useLeave();
 
 
@@ -32,7 +33,7 @@ const InRangePopUp = ({ setInRange, setCheckIn, handleUserCheckIn, officeName })
         setInRange(false);
     };
 
-    // -------------faculty attendance check-in API-----------------
+    // -------------user attendance check-in API-----------------
     const checkFacultyAttendance = () => {
         if (!showMesgBox) {
             const req = {
@@ -112,7 +113,8 @@ const InRangePopUp = ({ setInRange, setCheckIn, handleUserCheckIn, officeName })
                                 <span className='faculty_login_attendance_late_mesg_div'>
                                     <span>reason for Late :</span>
                                     <textarea placeholder='Message...' name="lateMessage" rows="5" cols="30" onChange={(e) => setLateMesg(e.target.value)} required></textarea>
-                                </span>}
+                                </span>
+                            }
                             <span className='InRange-message-span'>You are in range of {getDist} meters</span>
                         </DialogContentText>
                     </DialogContent>

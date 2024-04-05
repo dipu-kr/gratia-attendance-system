@@ -60,6 +60,7 @@ const TodayPresentTable = () => {
         axiosInstance
             .post("/attendance-on-date", req)
             .then((response) => {
+
                 setTimeout(() => {
                     setGetTodayAttend(response?.data)
                     setLoadingData(false);

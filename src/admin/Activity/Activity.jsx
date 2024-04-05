@@ -20,6 +20,7 @@ const Activity = () => {
     const [getEndDate, setGetEndDate] = useState("");
     const [loadingData, setLoadingData] = useState(false);
     const [getAttendHistory, setGetAttendHistory] = useState([])
+    const [userDetails, setUserDetails] = useState({})
 
     const [userType, setUserType] = useState("All Users")
     const [userDropdownList, setUserDropdownList] = useState([])
@@ -114,8 +115,10 @@ const Activity = () => {
                 axiosInstance
                     .post("/activity-by-user", req)
                     .then((response) => {
+                        // console.log(response)
                         setTimeout(() => {
-                            setGetAttendHistory(response.data)
+                            setGetAttendHistory(response.data?.date_wise_data)
+                            setUserDetails(response.data?.employee_data)
                             // setData_1(response.data[0])
                             setLoadingData(false);
                         }, 500);
@@ -277,10 +280,10 @@ const Activity = () => {
                             <div className='dashboard_activity_report_page_container'>
                                 <div className='activity-report-list-head'>
                                     <span>Name</span>
-                                    <span>Employee ID</span>
                                     <span>Designation</span>
                                     <span>Date</span>
-                                    <span>Activity</span>
+                                    <span>Activities</span>
+
                                 </div>
                                 <div className='activity-report-list-body'>
                                     {loadingData === true ?
@@ -294,11 +297,26 @@ const Activity = () => {
                                         </div> :
                                         getAttendHistory.length > 0 ? getAttendHistory.map((data, index) => (
                                             <div key={index} className='activity-report-list-data'>
-                                                <span className='admin_emp_full_name'>{data?.user.first_name} {data?.user.last_name}</span>
-                                                <span className='emp_id_field'>{data?.user.emp_id}</span>
-                                                <span className='report-table-message'>{data?.user.designation}</span>
-                                                <span className='report-status-green'>{data?.date}</span>
-                                                <span className='report-table-message-span'>{data?.activity}</span>
+                                                <span>{`${userDetails?.first_name}  ${userDetails?.last_name}`}</span>
+                                                <span>{userDetails?.designation}</span>
+                                                <span>
+                                                    {
+                                                        data?.map((val, index) => (
+                                                            index === 0 && <span key={index}>{val?.date}</span>
+                                                        ))
+                                                    }
+                                                </span>
+                                                <span>
+                                                    {
+                                                        data?.map((val, index) => (
+                                                            <span key={index} style={{ height: '100%', display: 'flex', alignItems: 'center', borderRight: '1px solid gray', paddingLeft: '5px' }}>
+                                                                <span className='report-table-message-span'>{val?.activity}</span>
+                                                            </span>
+
+                                                        ))
+                                                    }
+                                                </span>
+
                                             </div>
                                         )) :
                                             <span className='attend_report_empty_component'>

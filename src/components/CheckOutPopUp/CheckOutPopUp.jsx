@@ -7,6 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import Slide from '@mui/material/Slide';
+import MoonLoader from "react-spinners/ClipLoader";
 
 
 
@@ -35,16 +36,35 @@ const CheckOutPopUp = ({ setFacultyCheckout, getDist, checkOutYesBtn }) => {
                 >
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <span className='checkout_text'>
-                                <span>You are now <span className={getDist <= 200 ? "greenClass" : "warningclass"}>{getDist}</span> meters away from office</span>
-                                {/* <span><span className={getDist <= 200 ? "greenClass" : "warningclass"}>{getDist}</span> meters away from office</span> */}
-                                <span>Are you sure want to check out?</span>
-                            </span>
+                            {
+                                getDist === "" ?
+                                    <span style={{ width: '180px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '25px' }}>
+                                        <span>
+                                            Fetching distance.....
+                                        </span>
+                                        <MoonLoader
+                                            color='blue'
+                                            size={40}
+                                            aria-label="Loading Spinner"
+                                            data-testid="loader"
+                                        />
+                                    </span>
+                                    : <span className='checkout_text'>
+                                        <span>You are now <span className={getDist <= 200 ? "greenClass" : "warningclass"}>{getDist}</span> meters away from office</span>
+                                        {/* <span><span className={getDist <= 200 ? "greenClass" : "warningclass"}>{getDist}</span> meters away from office</span> */}
+                                        <span>Are you sure want to check out?</span>
+                                    </span>
+                            }
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions sx={{ justifyContent: 'space-between' }}>
-                        <Button onClick={() => { handleClose() }} variant="outlined" size="medium" sx={{ ml: 2 }}>NO</Button>
-                        <Button onClick={() => { handleClose(); checkOutYesBtn() }} variant="contained" size="medium" sx={{ mr: 2 }}>YES</Button>
+                        {
+                            getDist === "" ? "" :
+                                <>
+                                    <Button onClick={() => { handleClose() }} variant="outlined" size="medium" sx={{ ml: 2 }}>NO</Button>
+                                    <Button onClick={() => { handleClose(); checkOutYesBtn() }} variant="contained" size="medium" sx={{ mr: 2 }}>YES</Button>
+                                </>
+                        }
                     </DialogActions>
                 </Dialog>
             </div>

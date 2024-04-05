@@ -15,7 +15,15 @@
     color:white;
     display: flex;
 }
-.activity-report-list-head>span{
+.activity-report-list-head>span:first-child{
+    display: inline-block;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+.activity-report-list-head>span:nth-child(2){
     display: inline-block;
     width: 20%;
     display: flex;
@@ -23,6 +31,23 @@
     align-items: center;
     font-size: 13px;
 }
+.activity-report-list-head>span:nth-child(3){
+    display: inline-block;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+.activity-report-list-head>span:nth-child(4){
+    display: inline-block;
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+
 .activity-report-list-head>span:first-child{
     text-transform: capitalize !important;
 }
@@ -59,8 +84,8 @@
 .activity-report-list-data:hover{
     background-color: rgb(225, 224, 224);
 }
-.activity-report-list-data>span{
-    width: 20%;
+.activity-report-list-data>span:first-child{
+    width: 15%;
     font-weight: 400;
     font-family: "Poppins",sans-serif;
     font-size: 12px;
@@ -71,12 +96,43 @@
     font-family: 'Poppins',sans-serif;
     font-weight: 500;
 }
-.activity-report-list-data>span:first-child{
-    text-transform: capitalize !important;
+.activity-report-list-data>span:nth-child(2){
+    width: 15%;
+    font-weight: 400;
+    font-family: "Poppins",sans-serif;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 500;
 }
 .activity-report-list-data>span:nth-child(3){
-    text-transform: capitalize !important;
+     width: 10%;
+    font-weight: 400;
+    font-family: "Poppins",sans-serif;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 500;
+    gap: 10px;
 }
-.activity-report-list-data>span:nth-child(5){
-     text-transform: capitalize !important;
+.activity-report-list-data>span:nth-child(4){
+     width: 60%;
+     height: auto;
+    font-weight: 400;
+    font-family: "Poppins",sans-serif;
+    font-size: 11px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 500;
+    gap: 10px;
 }
+

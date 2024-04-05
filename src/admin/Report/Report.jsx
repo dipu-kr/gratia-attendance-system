@@ -19,7 +19,7 @@ const Report = () => {
     const [getEndDate, setGetEndDate] = useState(new Date().toISOString().substring(0, 10));
     const [loadingData, setLoadingData] = useState(false);
     const [getAttendHistory, setGetAttendHistory] = useState([])
-    console.log("hello", getAttendHistory)
+    // console.log("hello", getAttendHistory)
     const [userType, setUserType] = useState("All Users")
     // console.log(userType)
     const [userDropdownList, setUserDropdownList] = useState([])
@@ -119,7 +119,7 @@ const Report = () => {
                 axiosInstance
                     .post("/attendance-by-user", req)
                     .then((response) => {
-                        console.log("single user", response)
+                        // console.log("single user", response)
                         if (response.data?.status === 200) {
                             setGetAttendHistory(response?.data?.attendances)
                             setLoadingData(false);
