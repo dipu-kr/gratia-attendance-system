@@ -56,10 +56,7 @@ const Home = () => {
         axiosInstance
             .post("/daily-attendance-count", req)
             .then((response) => {
-                // setTimeout(() => {
                 setTotalPresentAttend(response.data?.count)
-                // setUpdateAttendanceStatus(true)
-                // }, 1000)
             })
             .catch((err) => {
                 toast.error(err?.message)

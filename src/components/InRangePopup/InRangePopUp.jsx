@@ -15,6 +15,7 @@ import { useAuth } from '../../context/auth/authContext';
 import { useAttend } from '../../context/attendance/attenContext';
 import { useLeave } from '../../context/leave/leaveContext'
 import moment from 'moment';
+;
 
 
 
@@ -115,7 +116,7 @@ const InRangePopUp = ({ setInRange, setCheckIn, handleUserCheckIn, officeName })
                                     <textarea placeholder='Message...' name="lateMessage" rows="5" cols="30" onChange={(e) => setLateMesg(e.target.value)} required></textarea>
                                 </span>
                             }
-                            <span className='InRange-message-span'>You are in range of {getDist} meters</span>
+                            <span className='InRange-message-span'>You are in range of  {getDist} meters</span>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

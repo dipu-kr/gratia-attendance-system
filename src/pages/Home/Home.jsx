@@ -39,6 +39,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 import { Empty } from 'antd';
+import MoonLoader from "react-spinners/ClipLoader"
 
 
 
@@ -207,11 +208,7 @@ const Home = () => {
     };
 
     const handleYesButton = () => {
-        if (getDist <= 1000) {
-            setInRange(true)
-        } else {
-            setOutRange(true)
-        }
+        setInRange(true)
     }
     const checkOutYesBtn = () => {
         setCheckOutPopUpMesgBox(true);
@@ -238,7 +235,6 @@ const Home = () => {
                 else {
                     setCheckIn(null);
                     setCheckInTodayDate(null)
-                    // setCheckInData("")
                 }
             })
             .catch((err) => {
@@ -273,7 +269,6 @@ const Home = () => {
         },
     }
 
-    // console.log(data?.datasets)
     const data1 = {
         labels: ["Taken", "Balance"],
         datasets: [
@@ -292,8 +287,6 @@ const Home = () => {
 
         },
     }
-
-    // console.log("data1", data1?.datasets?.data)
     // --------------------------holiday data fetch fun--------------------
     const fetchHolidayDataFun = () => {
         axiosInstance
@@ -327,7 +320,6 @@ const Home = () => {
         fetchTotalLeaveFun()
     }, [])
 
-    // const holidayDate = moment(holidayData.date).format('MMM-DD-YYYY')
     const currentMonth = moment(new Date()).format('MMMM-YYYY')
     const currentYear = moment(new Date()).format('YYYY')
 
@@ -346,7 +338,6 @@ const Home = () => {
             .post("/monthly-attendance-count", req)
             .then((response) => {
                 const { data } = response
-                // console.log(data)
                 setInTimeAttendCount(data)
             })
             .catch((err) => {
@@ -364,7 +355,6 @@ const Home = () => {
             .post("/monthly-late-users-count", req)
             .then((response) => {
                 const { data } = response
-                // console.log(data)
                 setLateAttendCount(data)
             })
             .catch((err) => {
@@ -400,7 +390,7 @@ const Home = () => {
                                                 {
                                                     uploadProfileImg === null ? userData.gender === 'male' ? <img src={userMale} alt="user_img" /> : <img src={userFemale} alt="user_img" /> : <img src={`${serverUrl}${uploadProfileImg}`} alt="user_img" />
                                                 }
-                                                {/* <span className='role_for_mob_view'>{userData.designation}</span> */}
+
                                             </div>
                                             <p>
                                                 {/* <span>Welcome</span> */}
@@ -478,23 +468,33 @@ const Home = () => {
                                     >
                                         <DialogContent>
                                             <DialogContentText id="alert-dialog-description">
-                                                <span className='faculty_login_attendance_popup_date'><MdLocationOn className='home-popup-icon' /><strong>{currentDate}</strong></span>
-                                                {/* <span className='faculty_login_attendance_popup_address'>Juripar Bus Stop- Lokhra, Jalukbari,<br /> Asssam 434234, India</span> */}
-                                                <span className='faculty_login_attendance_popup_current_time_distance'>
-                                                    <span className='faculty_login_attendance_popup_current_time'>
-                                                        <span><AiOutlineClockCircle size={25} /></span>
-                                                        <span>{time}</span>
-                                                        <span>Sign in</span>
-                                                    </span>
-                                                    <span className='faculty_login_attendance_popup_current_time'>
-                                                        <span><GoLocation size={25} /></span>
-                                                        <span>{getDist} Mtrs</span>
-                                                        <span>Distance</span>
-                                                    </span>
-                                                </span>
+                                                {
+                                                    getDist &&
+                                                    <>
+                                                        <span className='faculty_login_attendance_popup_date'><MdLocationOn className='home-popup-icon' /><strong>{currentDate}</strong></span>
+                                                        <span className='faculty_login_attendance_popup_current_time_distance'>
+                                                            <span className='faculty_login_attendance_popup_current_time'>
+                                                                <span><AiOutlineClockCircle size={25} /></span>
+                                                                <span>{time}</span>
+                                                                <span>Sign in</span>
+                                                            </span>
+                                                            <span className='faculty_login_attendance_popup_current_time'>
+                                                                <span><GoLocation size={25} /></span>
+                                                                <span>{getDist} Mtrs</span>
+                                                                <span>Distance</span>
+                                                            </span>
+                                                        </span>
+                                                    </>
+                                                }
                                                 {!getDist &&
                                                     <span className='location_span'>
-                                                        <span>*Please turn on your location.</span>
+                                                        <span>Fetching Distance....</span>
+                                                        <MoonLoader
+                                                            color='blue'
+                                                            size={40}
+                                                            aria-label="Loading Spinner"
+                                                            data-testid="loader"
+                                                        />
                                                     </span>
                                                 }
                                             </DialogContentText>
@@ -558,19 +558,15 @@ const Home = () => {
                                     {/* --------------------------------------------------------------------------------- */}
 
                                     {inRange && <InRangePopUp handleUserCheckIn={handleUserCheckIn} setCheckIn={setCheckIn} setInRange={setInRange} setCheckInTodayDate={setCheckInTodayDate} officeName={officeName} />}
-                                    {outRange && <OutOfRangePopUp setOutRange={setOutRange} />}
+                                    {/* ------------commented OutOfRangepopUp component-------- */}
+                                    {/* {outRange && <OutOfRangePopUp setOutRange={setOutRange} />} */}
                                     {facultyCheckout && <CheckOutPopUp setFacultyCheckout={setFacultyCheckout} checkOutYesBtn={checkOutYesBtn} getDist={getDist} />}
                                     {checkOutPopUpMesgBox && <CheckOutPopUpMesg setCanUser={setCanUser} setCheckOutPopUpMesgBox={setCheckOutPopUpMesgBox} checkOutPopUpMesgBox={checkOutPopUpMesgBox} getDist={getDist} setCheckIn={setCheckIn} handleUserCheckIn={handleUserCheckIn} officeName={officeName} />}
-                                    {/* {reactPopup && <ReactionPopUp reactPopup={reactPopup} setReactPopup={setReactPopup} handleCloseReactPopup={handleCloseReactPopup} />} */}
+
                                 </div>
                             </div>
                         </div>
 
-                        {/* ------------------------holiday content----------------- */}
-                        {/* {holidayPopUp &&
-                            <div className='holiday_popup_container'>
-                                <p className='holiday_popup_container_para'><span><span><HiOutlineEmojiHappy /></span><span>Your upcoming holiday is <span style={{ marginLeft: '4px', color: 'green' }}>"{holidayData.name}"</span><strong> {holidayDate}</strong></span></span><span onClick={() => setHolidayPopUp(false)}><AiOutlineCloseCircle /></span></p>
-                            </div>} */}
                         {/* ------------------------Apply leave----------------- */}
                         <div className='apply_leave_box_container'>
                             <div className='user_attendance_summary_container'>

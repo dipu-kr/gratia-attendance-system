@@ -2,8 +2,6 @@ import React from 'react';
 import { ImageContext } from './imageContext';
 
 const ImageProvider = ({ children }) => {
-    // const serverUrl = 'https://attendance.gratiatechnology.com/uploads/';
-    // const serverUrl = 'http://3.110.128.200:9000/uploads/';
     const serverUrl = 'https://api.attendancetested.gratiatechnology.com/uploads/';
 
     return (

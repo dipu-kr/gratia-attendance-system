@@ -21,6 +21,8 @@ const Activity = () => {
     const [loadingData, setLoadingData] = useState(false);
     const [getAttendHistory, setGetAttendHistory] = useState([])
     const [userDetails, setUserDetails] = useState({})
+    const [getAllUsersActivities, setGetAllUsersActivities] = useState([])
+    const [getAllUsersDetails, setGetAllUsersDetails] = useState({})
 
     const [userType, setUserType] = useState("All Users")
     const [userDropdownList, setUserDropdownList] = useState([])
@@ -65,7 +67,7 @@ const Activity = () => {
                     className: "facultyToast"
                 });
             } else {
-                setLoadingData(true);
+                // setLoadingData(true);
                 const req = {
                     start_date: getStartDate,
                     end_date: getEndDate
@@ -73,11 +75,11 @@ const Activity = () => {
                 axiosInstance
                     .post("/activity-on-date", req)
                     .then((response) => {
-                        // console.log(response)
+                        console.log(response)
                         setTimeout(() => {
-                            setGetAttendHistory(response.data)
+                            setGetAllUsersActivities(response.data)
                             // setData_1(response.data[0])
-                            setLoadingData(false);
+                            // setLoadingData(false);
                         }, 500);
                     })
                     .catch((err) => {
@@ -115,7 +117,7 @@ const Activity = () => {
                 axiosInstance
                     .post("/activity-by-user", req)
                     .then((response) => {
-                        // console.log(response)
+                        console.log("data return from backnd", response)
                         setTimeout(() => {
                             setGetAttendHistory(response.data?.date_wise_data)
                             setUserDetails(response.data?.employee_data)
@@ -286,43 +288,100 @@ const Activity = () => {
 
                                 </div>
                                 <div className='activity-report-list-body'>
-                                    {loadingData === true ?
-                                        <div className='holiday_loader_loading'>
-                                            <MoonLoader
-                                                color='blue'
-                                                size={70}
-                                                aria-label="Loading Spinner"
-                                                data-testid="loader"
-                                            />
-                                        </div> :
-                                        getAttendHistory.length > 0 ? getAttendHistory.map((data, index) => (
-                                            <div key={index} className='activity-report-list-data'>
-                                                <span>{`${userDetails?.first_name}  ${userDetails?.last_name}`}</span>
-                                                <span>{userDetails?.designation}</span>
-                                                <span>
-                                                    {
-                                                        data?.map((val, index) => (
-                                                            index === 0 && <span key={index}>{val?.date}</span>
-                                                        ))
-                                                    }
-                                                </span>
-                                                <span>
-                                                    {
-                                                        data?.map((val, index) => (
-                                                            <span key={index} style={{ height: '100%', display: 'flex', alignItems: 'center', borderRight: '1px solid gray', paddingLeft: '5px' }}>
-                                                                <span className='report-table-message-span'>{val?.activity}</span>
-                                                            </span>
+                                    {
+                                        // =============All Users table Data================
+                                        userType === "All Users" ?
+                                            loadingData === true ?
+                                                <div className='holiday_loader_loading'>
+                                                    <MoonLoader
+                                                        color='blue'
+                                                        size={70}
+                                                        aria-label="Loading Spinner"
+                                                        data-testid="loader"
+                                                    />
+                                                </div> : getAllUsersActivities.length > 0 ? getAllUsersActivities.map((data, index) => (
+                                                    <div key={index} className='activity-report-list-data'>
+                                                        {
+                                                            data?.map((val, index) => (
+                                                                <>
+                                                                    <span>{`${val?.first_name}  ${val?.last_name}`}</span>
+                                                                    <span>{val?.designation}</span>
+                                                                    <span>
+                                                                        {
+                                                                            val[0]?.map((val) => {
+                                                                                <>
+                                                                                    <span>{val?.date}</span>
+                                                                                </>
+                                                                            })
+                                                                        }
+                                                                    </span>
+                                                                </>
+                                                            ))
+                                                        }
 
-                                                        ))
-                                                    }
-                                                </span>
+                                                        {/* <span style={{ borderRight: '1px solid lightgray' }}>
+                                                            {
+                                                                data?.map((val, index) => (
+                                                                    index === 0 && <span key={index}>{val?.date}</span>
+                                                                ))
+                                                            }
+                                                        </span>
+                                                        <span>
+                                                            {
+                                                                data?.map((val, index) => (
+                                                                    <span key={index} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', borderRight: '1px solid lightgray', padding: '10px' }}>
+                                                                        <span style={{ flex: 1 }}>{val?.activity}</span>
+                                                                    </span>
 
-                                            </div>
-                                        )) :
-                                            <span className='attend_report_empty_component'>
-                                                <Empty />
-                                            </span>
+                                                                ))
+                                                            }
+                                                        </span> */}
+
+                                                    </div>
+                                                )) :
+                                                    <span className='attend_report_empty_component'>
+                                                        <Empty />
+                                                    </span>
+
+                                            // =============Single User table Data================
+                                            : loadingData === true ?
+                                                <div className='holiday_loader_loading'>
+                                                    <MoonLoader
+                                                        color='blue'
+                                                        size={70}
+                                                        aria-label="Loading Spinner"
+                                                        data-testid="loader"
+                                                    />
+                                                </div> : getAttendHistory.length > 0 ? getAttendHistory.map((data, index) => (
+                                                    <div key={index} className='activity-report-list-data'>
+                                                        <span>{`${userDetails?.first_name}  ${userDetails?.last_name}`}</span>
+                                                        <span>{userDetails?.designation}</span>
+                                                        <span style={{ borderRight: '1px solid lightgray' }}>
+                                                            {
+                                                                data?.map((val, index) => (
+                                                                    index === 0 && <span key={index}>{val?.date}</span>
+                                                                ))
+                                                            }
+                                                        </span>
+                                                        <span>
+                                                            {
+                                                                data?.map((val, index) => (
+                                                                    <span key={index} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', borderRight: '1px solid lightgray', padding: '10px' }}>
+                                                                        <span style={{ flex: 1 }}>{val?.activity}</span>
+                                                                    </span>
+
+                                                                ))
+                                                            }
+                                                        </span>
+
+                                                    </div>
+                                                )) :
+                                                    <span className='attend_report_empty_component'>
+                                                        <Empty />
+                                                    </span>
+
                                     }
+
                                 </div>
                             </div>
                         </div>
